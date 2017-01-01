@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Music Library | HoangPS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+</head>
+
+<body ng-controller="mainController"></body>
+    <div class="header">
+        <div class="container">
+            <h1>My Music Library</h1>
+        </div>
+    </div>
+    <div id="content" class="container main-content">
+        <div id="track-list" class="track-list col-md-6" ng-show="trackList.tracks.length > 0">
+            <h3>Track list</h3>
+            <ul>
+                <li ng-repeat="track in trackList.tracks">
+                    <button ng-click="player.play(trackList.tracks, track)" ng-hide="track.id == player.track.id && player.isPlaying">Play</button>
+                    <button ng-click="player.pause()" ng-show="track.id == player.track.id && player.isPlaying">Pause</button>
+                    <span class="track-title">{{track.title}}</span>
+                    <span ng-show="track.id == player.track.id && player.isPlaying">(playing)</span>
+                </li>
+            </ul>
+            <div>
+                <span>{{getTrackDuration(player.audio.currentTime*1000)}}/{{getTrackDuration(player.audio.duration*1000)}} ({{player.trackElapsedPercentage}}%)</span>
+            </div>
+            <div>
+                <button ng-click="player.prev()">Previous</button>
+                <button ng-click="player.next()">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="angularMusicPlayer.js"></script>
+</body>
+
+</html>
